@@ -15,6 +15,37 @@ INSERT INTO Fournisseur (id_fournisseur, nom_fournisseur, type_fournisseur) VALU
 ('F007','Accor Hotels','Hôtel'),
 ('F008','Hertz','Location');
 
+-- Prestations (MAIN: 10–15) – contraintes type/condition/prix/quantité/dates
+INSERT INTO prestation (id_prestation, type_prestation, date_debut_prestation, date_fin_prestation, prix_unitaire, quantite, condition_tarif, id_fournisseur) VALUES
+('P001','Vol',NULL,NULL,450.00,1,'Standard','F001'),
+('P002','Hôtel','2025-06-10','2025-06-15',120.00,5,'Flexible','F007'),
+('P003','Assurance','2025-06-01','2025-06-30',30.00,1,'Standard','F004'),
+('P004','Location voiture','2025-06-11','2025-06-15',45.00,4,'Promo','F003'),
+('P005','Circuit','2025-07-06','2025-07-10',300.00,1,'Standard','F005'),
+('P006','Vol',NULL,NULL,90.00,1,'Last minute','F006'),
+('P007','Hôtel','2025-07-05','2025-07-09',80.00,4,'Promo','F002'),
+('P008','Vol',NULL,NULL,150.00,1,'Standard','F006'),
+('P009','Hôtel','2025-09-10','2025-09-14',95.00,4,'Flexible','F002'),
+('P010','Assurance','2025-09-01','2025-09-30',25.00,1,'Standard','F004'),
+('P011','Vol',NULL,NULL,600.00,1,'Standard','F001'),
+('P012','Hôtel','2025-10-11','2025-10-17',140.00,6,'Flexible','F007');
+
+-- Dossiers (MAIN: 10–15) – nécessite clients, voyageurs, prestations
+-- =============================
+INSERT INTO Dossier_De_Reservation (id_dossier, status_dossier, date_ouverture_dossier, canal_vente, devise, total_attendu, id_prestation, id_voyageur, id_prestation_1, id_client) VALUES
+('D001','Confirmé','2025-05-01','En ligne','EUR',450.00,'P001','V001','P003','C001'),
+('D002','Confirmé','2025-06-01','Agence','EUR',900.00,'P002','V002','P003','C002'),
+('D003','En cours','2025-07-01','Téléphone','EUR',390.00,'P006','V003','P007','C005'),
+('D004','Confirmé','2025-07-12','Agence','EUR',225.00,'P004','V004','P007','C006'),
+('D005','Confirmé','2025-08-01','En ligne','EUR',900.00,'P005','V005','P001','C008'),
+('D006','Annulé','2025-09-01','En ligne','EUR',520.00,'P008','V006','P009','C009'),
+('D007','Confirmé','2025-10-01','En ligne','EUR',1220.00,'P011','V007','P012','C010'),
+('D008','En cours','2025-05-16','Agence','EUR',380.00,'P011','V008','P007','C003'),
+('D009','Confirmé','2025-06-15','Téléphone','EUR',560.00,'P007','V009','P010','C004'),
+('D010','Confirmé','2025-09-14','En ligne','EUR',275.00,'P006','V010','P010','C007'),
+('D011','Confirmé','2025-10-11','En ligne','EUR',1420.00,'P011','V011','P012','C011'),
+('D012','En cours','2025-07-09','Agence','EUR',245.00,'P010','V012','P007','C012');
+
 -- Code_De_Promo (MAIN: 10–15)
 INSERT INTO Code_De_Promo (id_code_promo, code_promo, libelle, date_debut, date_fin, type_remise, valeur_remise) VALUES
 ('CP01','WELCOME10','Bienvenue -10%', '2025-01-01','2025-12-31','Pourcentage',10.00),
@@ -52,6 +83,20 @@ INSERT INTO Carte_De_Fidelite (id_carte, programme, point_cumules, id_client) VA
 ('CF05','Gold',420.0,'C010'),
 ('CF06','Silver',10.0,'C012');
 
+-- Reclamation (MAIN: 10–15)
+INSERT INTO Reclamation (id_reclamation, date_reclamation, canal, objet, staut) VALUES
+('RC01','2025-06-16','Email','Retard de vol AF1234','Ouverte'),
+('RC02','2025-07-10','Téléphone','Chambre non conforme','En cours'),
+('RC03','2025-07-13','Agence','Facturation erronée','Traitée'),
+('RC04','2025-08-02','Formulaire','Bagage perdu','En cours'),
+('RC05','2025-09-02','Email','Modification de réservation','Fermée'),
+('RC06','2025-10-12','Téléphone','Remboursement partiel demandé','Ouverte'),
+('RC07','2025-05-22','Agence','Siège non attribué','Traitée'),
+('RC08','2025-06-21','Email','Annulation tardive','En cours'),
+('RC09','2025-09-16','Téléphone','Problème de billet','Fermée'),
+('RC10','2025-10-19','Agence','Taxe aéroport en double','Ouverte');
+
+
 -- Voyageur (MAIN: 10–15)
 INSERT INTO voyageur_ (id_voyageur, nom_voyageur, prenom_voyageur, date_naissance_voyageur, nationalite, num_passeport, date_exp_passeport) VALUES
 ('V001','Martin','Alice','1995-04-12','FR','PA1234567','2030-05-01'),
@@ -66,6 +111,22 @@ INSERT INTO voyageur_ (id_voyageur, nom_voyageur, prenom_voyageur, date_naissanc
 ('V010','Khan','Ayesha','1996-07-07','PK','PK1239876','2030-07-07'),
 ('V011','Lee','Jin','1994-05-14','KR','PK7788123','2031-05-14'),
 ('V012','Brown','Emily','1999-10-25','GB','PG3456123','2032-10-25');
+
+-- Trajet_ (MAIN: 10–15)
+INSERT INTO Trajet_ (id_tajet, code_vol, airport_depart, aeroport_arrive, depart_datetime, arrive_datetime, num_escale) VALUES
+('T001','AF1234','CDG','JFK','2025-06-10 10:00:00','2025-06-10 12:45:00',0),
+('T002','AF1235','JFK','CDG','2025-06-20 16:00:00','2025-06-21 05:30:00',0),
+('T003','TO3456','ORY','BCN','2025-07-05 08:30:00','2025-07-05 10:15:00',0),
+('T004','HV7890','AMS','NCE','2025-07-12 14:00:00','2025-07-12 15:45:00',0),
+('T005','AF5678','CDG','FCO','2025-08-01 09:00:00','2025-08-01 11:00:00',0),
+('T006','AF5679','FCO','CDG','2025-08-07 18:00:00','2025-08-07 20:00:00',0),
+('T007','U24100','ORY','MAD','2025-09-10 07:15:00','2025-09-10 09:30:00',0),
+('T008','U24101','MAD','ORY','2025-09-15 19:00:00','2025-09-15 21:15:00',0),
+('T009','AF9001','CDG','DXB','2025-10-10 22:00:00','2025-10-11 06:00:00',1),
+('T010','AF9002','DXB','CDG','2025-10-18 02:00:00','2025-10-18 08:00:00',1),
+('T011','HV2200','AMS','BCN','2025-05-15 13:00:00','2025-05-15 15:30:00',0),
+('T012','HV2201','BCN','AMS','2025-05-22 17:00:00','2025-05-22 19:30:00',0);
+
 
 -- Document_Voyageur (MAIN: 10–15)
 INSERT INTO Document_Voyageur (id_document, type_document, pays, date_emission, date_expiration, num_document) VALUES
@@ -87,35 +148,8 @@ INSERT INTO Reservation_De_Vol (id_vol) VALUES
 ('R001'),('R002'),('R003'),('R004'),('R005'),('R006'),
 ('R007'),('R008'),('R009'),('R010'),('R011'),('R012');
 
--- Trajet_ (MAIN: 10–15)
-INSERT INTO Trajet_ (id_tajet, code_vol, airport_depart, aeroport_arrive, depart_datetime, arrive_datetime, num_escale) VALUES
-('T001','AF1234','CDG','JFK','2025-06-10 10:00:00','2025-06-10 12:45:00',0),
-('T002','AF1235','JFK','CDG','2025-06-20 16:00:00','2025-06-21 05:30:00',0),
-('T003','TO3456','ORY','BCN','2025-07-05 08:30:00','2025-07-05 10:15:00',0),
-('T004','HV7890','AMS','NCE','2025-07-12 14:00:00','2025-07-12 15:45:00',0),
-('T005','AF5678','CDG','FCO','2025-08-01 09:00:00','2025-08-01 11:00:00',0),
-('T006','AF5679','FCO','CDG','2025-08-07 18:00:00','2025-08-07 20:00:00',0),
-('T007','U24100','ORY','MAD','2025-09-10 07:15:00','2025-09-10 09:30:00',0),
-('T008','U24101','MAD','ORY','2025-09-15 19:00:00','2025-09-15 21:15:00',0),
-('T009','AF9001','CDG','DXB','2025-10-10 22:00:00','2025-10-11 06:00:00',1),
-('T010','AF9002','DXB','CDG','2025-10-18 02:00:00','2025-10-18 08:00:00',1),
-('T011','HV2200','AMS','BCN','2025-05-15 13:00:00','2025-05-15 15:30:00',0),
-('T012','HV2201','BCN','AMS','2025-05-22 17:00:00','2025-05-22 19:30:00',0);
 
--- Prestations (MAIN: 10–15) – contraintes type/condition/prix/quantité/dates
-INSERT INTO prestation (id_prestation, type_prestation, date_debut_prestation, date_fin_prestation, prix_unitaire, quantite, condition_tarif, id_fournisseur) VALUES
-('P001','Vol',NULL,NULL,450.00,1,'Standard','F001'),
-('P002','Hôtel','2025-06-10','2025-06-15',120.00,5,'Flexible','F007'),
-('P003','Assurance','2025-06-01','2025-06-30',30.00,1,'Standard','F004'),
-('P004','Location voiture','2025-06-11','2025-06-15',45.00,4,'Promo','F003'),
-('P005','Circuit','2025-07-06','2025-07-10',300.00,1,'Standard','F005'),
-('P006','Vol',NULL,NULL,90.00,1,'Last minute','F006'),
-('P007','Hôtel','2025-07-05','2025-07-09',80.00,4,'Promo','F002'),
-('P008','Vol',NULL,NULL,150.00,1,'Standard','F006'),
-('P009','Hôtel','2025-09-10','2025-09-14',95.00,4,'Flexible','F002'),
-('P010','Assurance','2025-09-01','2025-09-30',25.00,1,'Standard','F004'),
-('P011','Vol',NULL,NULL,600.00,1,'Standard','F001'),
-('P012','Hôtel','2025-10-11','2025-10-17',140.00,6,'Flexible','F007');
+
 
 -- Paiement (MAIN: 10–15)
 INSERT INTO Paiement (id_paiement, date_paiement, montant_paiement, devise_paiment, moyen_paiement, reference_paiement) VALUES
@@ -132,18 +166,7 @@ INSERT INTO Paiement (id_paiement, date_paiement, montant_paiement, devise_paime
 ('PM11','2025-10-11',1280.00,'EUR','Carte','DXB-PACK-11'),
 ('PM12','2025-07-09',220.00,'EUR','Virement','ASSUR-P010-12');
 
--- Reclamation (MAIN: 10–15)
-INSERT INTO Reclamation (id_reclamation, date_reclamation, canal, objet, staut) VALUES
-('RC01','2025-06-16','Email','Retard de vol AF1234','Ouverte'),
-('RC02','2025-07-10','Téléphone','Chambre non conforme','En cours'),
-('RC03','2025-07-13','Agence','Facturation erronée','Traitée'),
-('RC04','2025-08-02','Formulaire','Bagage perdu','En cours'),
-('RC05','2025-09-02','Email','Modification de réservation','Fermée'),
-('RC06','2025-10-12','Téléphone','Remboursement partiel demandé','Ouverte'),
-('RC07','2025-05-22','Agence','Siège non attribué','Traitée'),
-('RC08','2025-06-21','Email','Annulation tardive','En cours'),
-('RC09','2025-09-16','Téléphone','Problème de billet','Fermée'),
-('RC10','2025-10-19','Agence','Taxe aéroport en double','Ouverte');
+
 
 -- Remboursement (référencé par Donner_lieu)
 INSERT INTO Remboursement (id_remboursement, date_remboursement, montant_remboursement, motif) VALUES
@@ -154,21 +177,7 @@ INSERT INTO Remboursement (id_remboursement, date_remboursement, montant_rembour
 ('RB005','2025-10-20',80.00,'Retard prolongé');
 
 -- =============================
--- Dossiers (MAIN: 10–15) – nécessite clients, voyageurs, prestations
--- =============================
-INSERT INTO Dossier_De_Reservation (id_dossier, status_dossier, date_ouverture_dossier, canal_vente, devise, total_attendu, id_prestation, id_voyageur, id_prestation_1, id_client) VALUES
-('D001','Confirmé','2025-05-01','En ligne','EUR',450.00,'P001','V001','P003','C001'),
-('D002','Confirmé','2025-06-01','Agence','EUR',900.00,'P002','V002','P003','C002'),
-('D003','En cours','2025-07-01','Téléphone','EUR',390.00,'P006','V003','P007','C005'),
-('D004','Confirmé','2025-07-12','Agence','EUR',225.00,'P004','V004','P007','C006'),
-('D005','Confirmé','2025-08-01','En ligne','EUR',900.00,'P005','V005','P001','C008'),
-('D006','Annulé','2025-09-01','En ligne','EUR',520.00,'P008','V006','P009','C009'),
-('D007','Confirmé','2025-10-01','En ligne','EUR',1220.00,'P011','V007','P012','C010'),
-('D008','En cours','2025-05-16','Agence','EUR',380.00,'P011','V008','P007','C003'),
-('D009','Confirmé','2025-06-15','Téléphone','EUR',560.00,'P007','V009','P010','C004'),
-('D010','Confirmé','2025-09-14','En ligne','EUR',275.00,'P006','V010','P010','C007'),
-('D011','Confirmé','2025-10-11','En ligne','EUR',1420.00,'P011','V011','P012','C011'),
-('D012','En cours','2025-07-09','Agence','EUR',245.00,'P010','V012','P007','C012');
+
 
 -- Facture_ (MAIN: 10–15) – nécessite Paiement & Dossier
 INSERT INTO Facture_ (id_facture, date_facture, devise_facture, montant_facture, id_paiement, id_dossier) VALUES
