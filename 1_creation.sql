@@ -78,6 +78,8 @@ CREATE TABLE Carte_De_Fidelite(
    PRIMARY KEY(id_carte),
    UNIQUE(id_client),
    FOREIGN KEY(id_client) REFERENCES client_(id_client)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE 
 );
 
 CREATE TABLE Document_Voyageur(
@@ -153,15 +155,17 @@ CREATE TABLE Avoir(
    id_vol VARCHAR(10),
    id_tajet VARCHAR(10),
    PRIMARY KEY(id_vol, id_tajet),
-   FOREIGN KEY(id_vol) REFERENCES Reservation_De_Vol(id_vol),
+   FOREIGN KEY(id_vol) REFERENCES Reservation_De_Vol(id_vol)
+   ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY(id_tajet) REFERENCES Trajet_(id_tajet)
+   ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Reserver(
    id_vol VARCHAR(10),
    id_voyageur VARCHAR(10),
    PRIMARY KEY(id_vol, id_voyageur),
-   FOREIGN KEY(id_vol) REFERENCES Reservation_De_Vol(id_vol),
+   FOREIGN KEY(id_vol) REFERENCES Reservation_De_Vol(id_vol) ,
    FOREIGN KEY(id_voyageur) REFERENCES voyageur_(id_voyageur)
 );
 
@@ -175,64 +179,98 @@ CREATE TABLE Concerner(
 );
 
 CREATE TABLE Obtenir(
-   id_voyageur VARCHAR(10),
-   id_tajet VARCHAR(10),
-   num_ticket VARCHAR(30),
-   classe_tarif VARCHAR(5),
-   PRIMARY KEY(id_voyageur, id_tajet),
-   UNIQUE(num_ticket),
-   FOREIGN KEY(id_voyageur) REFERENCES voyageur_(id_voyageur),
-   FOREIGN KEY(id_tajet) REFERENCES Trajet_(id_tajet)
+  id_voyageur VARCHAR(10),
+  id_tajet VARCHAR(10),
+  num_ticket VARCHAR(30),
+  classe_tarif VARCHAR(5),
+  PRIMARY KEY(id_voyageur, id_tajet),
+  UNIQUE(num_ticket),
+  FOREIGN KEY(id_voyageur)
+    REFERENCES voyageur_(id_voyageur)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_tajet)
+    REFERENCES Trajet_(id_tajet)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+DROP TABLE Correspondre;
 CREATE TABLE Correspondre(
-   id_client VARCHAR(10),
-   id_voyageur VARCHAR(10),
-   PRIMARY KEY(id_client, id_voyageur),
-   FOREIGN KEY(id_client) REFERENCES client_(id_client),
-   FOREIGN KEY(id_voyageur) REFERENCES voyageur_(id_voyageur)
+  id_client VARCHAR(10),
+  id_voyageur VARCHAR(10),
+  PRIMARY KEY(id_client, id_voyageur),
+  FOREIGN KEY(id_client)
+    REFERENCES client_(id_client)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_voyageur)
+    REFERENCES voyageur_(id_voyageur)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Associer(
-   id_dossier VARCHAR(10),
-   id_document VARCHAR(10),
-   PRIMARY KEY(id_dossier, id_document),
-   FOREIGN KEY(id_dossier) REFERENCES Dossier_De_Reservation(id_dossier),
-   FOREIGN KEY(id_document) REFERENCES Document_Voyageur(id_document)
+  id_dossier VARCHAR(10),
+  id_document VARCHAR(10),
+  PRIMARY KEY(id_dossier, id_document),
+  FOREIGN KEY(id_dossier)
+    REFERENCES Dossier_De_Reservation(id_dossier)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_document)
+    REFERENCES Document_Voyageur(id_document)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE Accorder(
-   id_dossier VARCHAR(10),
-   id_reclamation VARCHAR(10),
-   PRIMARY KEY(id_dossier, id_reclamation),
-   FOREIGN KEY(id_dossier) REFERENCES Dossier_De_Reservation(id_dossier),
-   FOREIGN KEY(id_reclamation) REFERENCES Reclamation(id_reclamation)
+  id_dossier VARCHAR(10),
+  id_reclamation VARCHAR(10),
+  PRIMARY KEY(id_dossier, id_reclamation),
+  FOREIGN KEY(id_dossier)
+    REFERENCES Dossier_De_Reservation(id_dossier)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_reclamation)
+    REFERENCES Reclamation(id_reclamation)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE Beneficier(
-   id_dossier VARCHAR(10),
-   id_code_promo VARCHAR(10),
-   PRIMARY KEY(id_dossier, id_code_promo),
-   FOREIGN KEY(id_dossier) REFERENCES Dossier_De_Reservation(id_dossier),
-   FOREIGN KEY(id_code_promo) REFERENCES Code_De_Promo(id_code_promo)
+  id_dossier VARCHAR(10),
+  id_code_promo VARCHAR(10),
+  PRIMARY KEY(id_dossier, id_code_promo),
+  FOREIGN KEY(id_dossier)
+    REFERENCES Dossier_De_Reservation(id_dossier)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_code_promo)
+    REFERENCES Code_De_Promo(id_code_promo)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
 CREATE TABLE Donner_lieu(
-   id_facture VARCHAR(10),
-   id_remboursement VARCHAR(50),
-   PRIMARY KEY(id_facture, id_remboursement),
-   FOREIGN KEY(id_facture) REFERENCES Facture_(id_facture),
-   FOREIGN KEY(id_remboursement) REFERENCES Remboursement(id_remboursement)
+  id_facture VARCHAR(10),
+  id_remboursement VARCHAR(50),
+  PRIMARY KEY(id_facture, id_remboursement),
+  FOREIGN KEY(id_facture)
+    REFERENCES Facture_(id_facture)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(id_remboursement)
+    REFERENCES Remboursement(id_remboursement)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 
 
 CREATE TABLE Preceder(
-   id_tajet     VARCHAR(10),
-   id_tajet_1   VARCHAR(10),
-   ecart_minute VARCHAR(50),
-   PRIMARY KEY (id_tajet, id_tajet_1),
-   FOREIGN KEY (id_tajet)   REFERENCES Trajet_(id_tajet),
-   FOREIGN KEY (id_tajet_1) REFERENCES Trajet_(id_tajet)
+  id_tajet VARCHAR(10),
+  id_tajet_1 VARCHAR(10),
+  ecart_minute VARCHAR(50),
+  PRIMARY KEY (id_tajet, id_tajet_1),
+  FOREIGN KEY (id_tajet)
+    REFERENCES Trajet_(id_tajet)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_tajet_1)
+    REFERENCES Trajet_(id_tajet)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  
 );
-
