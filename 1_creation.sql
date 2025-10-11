@@ -225,12 +225,14 @@ CREATE TABLE Donner_lieu(
    FOREIGN KEY(id_remboursement) REFERENCES Remboursement(id_remboursement)
 );
 
+
+
 CREATE TABLE Preceder(
-   id_tajet VARCHAR(10),
+   id_tajet     VARCHAR(10),
+   id_tajet_1   VARCHAR(10),
    ecart_minute VARCHAR(50),
-   id_tajet_1 VARCHAR(10) NOT NULL,
-   PRIMARY KEY(id_tajet),
-   UNIQUE(id_tajet_1),
-   FOREIGN KEY(id_tajet) REFERENCES Trajet_(id_tajet),
-   FOREIGN KEY(id_tajet_1) REFERENCES Trajet_(id_tajet)
+   PRIMARY KEY (id_tajet, id_tajet_1),
+   FOREIGN KEY (id_tajet)   REFERENCES Trajet_(id_tajet),
+   FOREIGN KEY (id_tajet_1) REFERENCES Trajet_(id_tajet)
 );
+
