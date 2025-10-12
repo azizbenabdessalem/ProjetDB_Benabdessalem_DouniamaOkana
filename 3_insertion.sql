@@ -1,7 +1,8 @@
+-- =============================
 -- 1) Tables de référence / principales
 -- =============================
 
--- Client (MAIN)
+-- Client
 INSERT INTO client_ (id_client, type_client, nom_client, prenom_client, email_client, tel_client) VALUES
 ('C001','Particulier','Martin','Alice','alice.martin@example.com','0611223344'),
 ('C002','Particulier','Dubois','Hugo','hugo.dubois@example.com','0622334455'),
@@ -16,7 +17,7 @@ INSERT INTO client_ (id_client, type_client, nom_client, prenom_client, email_cl
 ('C011','Particulier','Schmidt','Jonas','jonas.schmidt@example.com','0630303030'),
 ('C012','Particulier','Moreau','Chloé','chloe.moreau@example.com','0640404040');
 
--- Voyageur (MAIN)
+-- Voyageur
 INSERT INTO voyageur_ (id_voyageur, nom_voyageur, prenom_voyageur, date_naissance_voyageur, nationalite, num_passeport, date_exp_passeport) VALUES
 ('V001','Martin','Alice','1995-04-12','FR','PA1234567','2030-05-01'),
 ('V002','Dubois','Hugo','1992-08-20','FR','PD7654321','2029-12-31'),
@@ -31,7 +32,7 @@ INSERT INTO voyageur_ (id_voyageur, nom_voyageur, prenom_voyageur, date_naissanc
 ('V011','Lee','Jin','1994-05-14','KR','PK7788123','2031-05-14'),
 ('V012','Brown','Emily','1999-10-25','GB','PG3456123','2032-10-25');
 
--- Rattachement client ↔ voyageur (référentiel général)
+-- Correspondre (client ↔ voyageur)
 INSERT INTO Correspondre (id_client, id_voyageur) VALUES
 ('C001','V001'),
 ('C002','V002'),
@@ -41,13 +42,12 @@ INSERT INTO Correspondre (id_client, id_voyageur) VALUES
 ('C009','V006'),
 ('C010','V007'),
 ('C011','V011'),
--- compléments pour aligner les dossiers plus loin :
 ('C003','V008'),
 ('C004','V009'),
 ('C007','V010'),
 ('C012','V012');
 
--- Fournisseur (référencé par prestation)
+-- Fournisseur
 INSERT INTO Fournisseur (id_fournisseur, nom_fournisseur, type_fournisseur) VALUES
 ('F001','Air France','Compagnie aérienne'),
 ('F002','Booking.com','Hôtel'),
@@ -58,7 +58,7 @@ INSERT INTO Fournisseur (id_fournisseur, nom_fournisseur, type_fournisseur) VALU
 ('F007','Accor Hotels','Hôtel'),
 ('F008','Hertz','Location');
 
--- Prestation (MAIN)
+-- Prestation
 INSERT INTO prestation (id_prestation, type_prestation, date_debut_prestation, date_fin_prestation, prix_unitaire, quantite, condition_tarif, id_fournisseur) VALUES
 ('P001','Vol',NULL,NULL,450.00,1,'Standard','F001'),
 ('P002','Hôtel','2025-06-10','2025-06-15',120.00,5,'Flexible','F007'),
@@ -73,20 +73,20 @@ INSERT INTO prestation (id_prestation, type_prestation, date_debut_prestation, d
 ('P011','Vol',NULL,NULL,600.00,1,'Standard','F001'),
 ('P012','Hôtel','2025-10-11','2025-10-17',140.00,6,'Flexible','F007');
 
--- Code promo (MAIN)
+-- Code promo
 INSERT INTO Code_De_Promo (id_code_promo, code_promo, libelle, date_debut, date_fin, type_remise, valeur_remise) VALUES
-('CP01','WELCOME10','Bienvenue -10%', '2025-01-01','2025-12-31','Pourcentage',10.00),
-('CP02','SPRING15','Printemps -15%', '2025-03-01','2025-05-31','Pourcentage',15.00),
-('CP03','SUMMER50','Eté -50 EUR', '2025-06-01','2025-08-31','Montant',50.00),
-('CP04','WEEKEND5','Week-end -5%', '2025-02-01','2025-12-31','Pourcentage',5.00),
-('CP05','BUSI100','Pro -100 EUR', '2025-01-15','2025-12-15','Montant',100.00),
-('CP06','LAST20','Last minute -20%', '2025-01-01','2025-12-31','Pourcentage',20.00),
-('CP07','FAMILY80','Famille -80 EUR', '2025-04-01','2025-10-31','Montant',80.00),
-('CP08','LOYAL5','Fidélité -5 EUR', '2025-01-01','2025-12-31','Montant',5.00),
-('CP09','CITY10','City break -10%', '2025-01-10','2025-12-10','Pourcentage',10.00),
-('CP10','WINTER40','Hiver -40 EUR', '2025-11-01','2026-02-28','Montant',40.00);
+('CP01','WELCOME10','Bienvenue -10%','2025-01-01','2025-12-31','Pourcentage',10.00),
+('CP02','SPRING15','Printemps -15%','2025-03-01','2025-05-31','Pourcentage',15.00),
+('CP03','SUMMER50','Eté -50 EUR','2025-06-01','2025-08-31','Montant',50.00),
+('CP04','WEEKEND5','Week-end -5%','2025-02-01','2025-12-31','Pourcentage',5.00),
+('CP05','BUSI100','Pro -100 EUR','2025-01-15','2025-12-15','Montant',100.00),
+('CP06','LAST20','Last minute -20%','2025-01-01','2025-12-31','Pourcentage',20.00),
+('CP07','FAMILY80','Famille -80 EUR','2025-04-01','2025-10-31','Montant',80.00),
+('CP08','LOYAL5','Fidélité -5 EUR','2025-01-01','2025-12-31','Montant',5.00),
+('CP09','CITY10','City break -10%','2025-01-10','2025-12-10','Pourcentage',10.00),
+('CP10','WINTER40','Hiver -40 EUR','2025-11-01','2026-02-28','Montant',40.00);
 
--- Carte de fidélité (dépend de client_)
+-- Carte de fidélité
 INSERT INTO Carte_De_Fidelite (id_carte, programme, point_cumules, id_client) VALUES
 ('CF01','Silver',120.0,'C001'),
 ('CF02','Gold',850.0,'C002'),
@@ -95,7 +95,7 @@ INSERT INTO Carte_De_Fidelite (id_carte, programme, point_cumules, id_client) VA
 ('CF05','Gold',420.0,'C010'),
 ('CF06','Silver',10.0,'C012');
 
--- Réclamation (MAIN)
+-- Réclamation
 INSERT INTO Reclamation (id_reclamation, date_reclamation, canal, objet, staut) VALUES
 ('RC01','2025-06-16','Email','Retard de vol AF1234','Ouverte'),
 ('RC02','2025-07-10','Téléphone','Chambre non conforme','En cours'),
@@ -108,7 +108,7 @@ INSERT INTO Reclamation (id_reclamation, date_reclamation, canal, objet, staut) 
 ('RC09','2025-09-16','Téléphone','Problème de billet','Fermée'),
 ('RC10','2025-10-19','Agence','Taxe aéroport en double','Ouverte');
 
--- Documents voyageur (MAIN)
+-- Document_Voyageur
 INSERT INTO Document_Voyageur (id_document, type_document, pays, date_emission, date_expiration, num_document) VALUES
 ('D001','Passeport','France','2020-05-01','2030-05-01','PA1234567'),
 ('D002','Passeport','France','2019-12-31','2029-12-31','PD7654321'),
@@ -123,12 +123,12 @@ INSERT INTO Document_Voyageur (id_document, type_document, pays, date_emission, 
 ('D011','Carte ID','France','2023-01-01','2033-01-01','CNI778899'),
 ('D012','Permis','France','2024-02-01','2034-02-01','PERM55667');
 
--- Réservation de vol (MAIN)
+-- Reservation_De_Vol
 INSERT INTO Reservation_De_Vol (id_vol) VALUES
 ('R001'),('R002'),('R003'),('R004'),('R005'),('R006'),
 ('R007'),('R008'),('R009'),('R010'),('R011'),('R012');
 
--- Trajet (MAIN)
+-- Trajet
 INSERT INTO Trajet_ (id_tajet, code_vol, airport_depart, aeroport_arrive, depart_datetime, arrive_datetime, num_escale) VALUES
 ('T001','AF1234','CDG','JFK','2025-06-10 10:00:00','2025-06-10 12:45:00',0),
 ('T002','AF1235','JFK','CDG','2025-06-20 16:00:00','2025-06-21 05:30:00',0),
@@ -143,7 +143,7 @@ INSERT INTO Trajet_ (id_tajet, code_vol, airport_depart, aeroport_arrive, depart
 ('T011','HV2200','AMS','BCN','2025-05-15 13:00:00','2025-05-15 15:30:00',0),
 ('T012','HV2201','BCN','AMS','2025-05-22 17:00:00','2025-05-22 19:30:00',0);
 
--- Paiement (MAIN)  (aucune contrainte sur reference_paiement ici)
+-- Paiement
 INSERT INTO Paiement (id_paiement, date_paiement, montant_paiement, devise_paiment, moyen_paiement, reference_paiement) VALUES
 ('PM01','2025-05-01',450.00,'EUR','Carte','AF1234-ALICE-01'),
 ('PM02','2025-06-01',780.00,'EUR','Virement','BK-2025-0601-02'),
@@ -158,7 +158,7 @@ INSERT INTO Paiement (id_paiement, date_paiement, montant_paiement, devise_paime
 ('PM11','2025-10-11',1280.00,'EUR','Carte','DXB-PACK-11'),
 ('PM12','2025-07-09',220.00,'EUR','Virement','ASSUR-P010-12');
 
--- Remboursement (MAIN)
+-- Remboursement
 INSERT INTO Remboursement (id_remboursement, date_remboursement, montant_remboursement, motif) VALUES
 ('RB001','2025-06-20',50.00,'Geste commercial'),
 ('RB002','2025-07-15',30.00,'Prest. non fournie'),
@@ -167,23 +167,24 @@ INSERT INTO Remboursement (id_remboursement, date_remboursement, montant_rembour
 ('RB005','2025-10-20',80.00,'Retard prolongé');
 
 -- =============================
--- 2) Dossiers (dépendent de client_, voyageur_, prestation)
+-- 2) Dossiers (avec cas 1 seule prestation = NULL)
 -- =============================
-INSERT INTO Dossier_De_Reservation (id_dossier, status_dossier, date_ouverture_dossier, canal_vente, devise, total_attendu, id_prestation, id_voyageur, id_prestation_1, id_client) VALUES
+INSERT INTO Dossier_De_Reservation
+(id_dossier, status_dossier, date_ouverture_dossier, canal_vente, devise, total_attendu, id_prestation, id_voyageur, id_prestation_1, id_client) VALUES
 ('D001','Confirmé','2025-05-01','En ligne','EUR',450.00,'P001','V001','P003','C001'),
 ('D002','Confirmé','2025-06-01','Agence','EUR',900.00,'P002','V002','P003','C002'),
-('D003','En cours','2025-07-01','Téléphone','EUR',390.00,'P006','V003','P007','C005'),
-('D004','Confirmé','2025-07-12','Agence','EUR',225.00,'P004','V004','P007','C006'),
+('D003','En cours','2025-07-01','Téléphone','EUR',390.00,'P006','V003',NULL,'C005'),
+('D004','Confirmé','2025-07-12','Agence','EUR',225.00,'P004','V004',NULL,'C006'),
 ('D005','Confirmé','2025-08-01','En ligne','EUR',900.00,'P005','V005','P001','C008'),
-('D006','Annulé','2025-09-01','En ligne','EUR',520.00,'P008','V006','P009','C009'),
+('D006','Annulé','2025-09-01','En ligne','EUR',520.00,'P008','V006',NULL,'C009'),
 ('D007','Confirmé','2025-10-01','En ligne','EUR',1220.00,'P011','V007','P012','C010'),
-('D008','En cours','2025-05-16','Agence','EUR',380.00,'P011','V008','P007','C003'),
+('D008','En cours','2025-05-16','Agence','EUR',380.00,'P011','V008',NULL,'C003'),
 ('D009','Confirmé','2025-06-15','Téléphone','EUR',560.00,'P007','V009','P010','C004'),
-('D010','Confirmé','2025-09-14','En ligne','EUR',275.00,'P006','V010','P010','C007'),
+('D010','Confirmé','2025-09-14','En ligne','EUR',275.00,'P006','V010',NULL,'C007'),
 ('D011','Confirmé','2025-10-11','En ligne','EUR',1420.00,'P011','V011','P012','C011'),
-('D012','En cours','2025-07-09','Agence','EUR',245.00,'P010','V012','P007','C012');
+('D012','En cours','2025-07-09','Agence','EUR',245.00,'P010','V012',NULL,'C012');
 
--- Voyageurs rattachés aux dossiers (compléments inclus)
+-- Concerner
 INSERT INTO Concerner (id_dossier, id_voyageur, role_voyageur) VALUES
 ('D001','V001','Principal'),
 ('D002','V002','Principal'),
@@ -199,7 +200,7 @@ INSERT INTO Concerner (id_dossier, id_voyageur, role_voyageur) VALUES
 ('D012','V012','Principal');
 
 -- =============================
--- 3) Factures (dépendent de Paiement & Dossier)
+-- 3) Factures
 -- =============================
 INSERT INTO Facture_ (id_facture, date_facture, devise_facture, montant_facture, id_paiement, id_dossier) VALUES
 ('F001','2025-05-01','EUR',450.00,'PM01','D001'),
@@ -219,7 +220,7 @@ INSERT INTO Facture_ (id_facture, date_facture, devise_facture, montant_facture,
 -- 4) Tables d’association
 -- =============================
 
--- Avoir (vol-trajet)  + compléments R009/T009, R010/T010 pour boucler la chaîne
+-- Avoir (vol-trajet)
 INSERT INTO Avoir (id_vol, id_tajet) VALUES
 ('R001','T001'),
 ('R002','T002'),
@@ -243,7 +244,7 @@ INSERT INTO Reserver (id_vol, id_voyageur) VALUES
 ('R009','V007'),
 ('R010','V011');
 
--- Obtenir (voyageur-trajet) – num_ticket UNIQUE
+-- Obtenir (voyageur-trajet)
 INSERT INTO Obtenir (id_voyageur, id_tajet, num_ticket, classe_tarif) VALUES
 ('V001','T001','TK-AF-0001','Y'),
 ('V002','T002','TK-AF-0002','Y'),
@@ -253,9 +254,6 @@ INSERT INTO Obtenir (id_voyageur, id_tajet, num_ticket, classe_tarif) VALUES
 ('V006','T006','TK-AF-0006','Y'),
 ('V007','T009','TK-AF-0007','W'),
 ('V011','T010','TK-AF-0008','W');
-
-
--- Correspondre est déjà inséré plus haut (incluant les 4 compléments)
 
 -- Associer (dossier-document)
 INSERT INTO Associer (id_dossier, id_document) VALUES
@@ -298,7 +296,7 @@ INSERT INTO Donner_lieu (id_facture, id_remboursement) VALUES
 ('F009','RB004'),
 ('F011','RB005');
 
--- Preceder (trajet-trajet) – id_tajet <> id_tajet_1
+-- Preceder (trajet-trajet)
 INSERT INTO Preceder (id_tajet, id_tajet_1, ecart_minute) VALUES
 ('T001','T002','60'),
 ('T003','T004','90'),
