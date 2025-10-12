@@ -11,7 +11,7 @@ INSERT INTO client_ (id_client, type_client, nom_client, prenom_client, email_cl
 ('C006','Particulier','Garcia','Marco','marco.garcia@example.com',NULL),
 ('C007','Entreprise','BlueCorp','SA','info@bluecorp.com','0177889900'),
 ('C008','Particulier','Bernard','Zoé','zoe.bernard@example.com','0699001122'),
-('C009','Particulier','Rossi','Luca','0610101010','0610101010'),
+('C009','Particulier','Rossi','Luca','luca.rossi@example.com','0610101010'),
 ('C010','Particulier','Diallo','Aminata','aminata.diallo@example.com','0620202020'),
 ('C011','Particulier','Schmidt','Jonas','jonas.schmidt@example.com','0630303030'),
 ('C012','Particulier','Moreau','Chloé','chloe.moreau@example.com','0640404040');
@@ -250,10 +250,10 @@ INSERT INTO Obtenir (id_voyageur, id_tajet, num_ticket, classe_tarif) VALUES
 ('V003','T003','TK-TO-0003','M'),
 ('V004','T004','TK-HV-0004','V'),
 ('V005','T005','TK-AF-0005','Y'),
-('V006','T06','TK-AF-0006','Y'); -- Vérifie l'orthographe 'T006' si besoin
--- (pour garder exactement tes 8 lignes initiales, réajoute celles-ci si tu le souhaites:)
+('V006','T006','TK-AF-0006','Y'),
 ('V007','T009','TK-AF-0007','W'),
 ('V011','T010','TK-AF-0008','W');
+
 
 -- Correspondre est déjà inséré plus haut (incluant les 4 compléments)
 
