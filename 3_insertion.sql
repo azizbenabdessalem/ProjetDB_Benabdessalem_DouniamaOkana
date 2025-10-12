@@ -252,8 +252,8 @@ INSERT INTO Obtenir (id_voyageur, id_tajet, num_ticket, classe_tarif) VALUES
 ('V005','T005','TK-AF-0005','Y'),
 ('V006','T06','TK-AF-0006','Y'); -- Vérifie l'orthographe 'T006' si besoin
 -- (pour garder exactement tes 8 lignes initiales, réajoute celles-ci si tu le souhaites:)
--- ('V007','T009','TK-AF-0007','W'),
--- ('V011','T010','TK-AF-0008','W');
+('V007','T009','TK-AF-0007','W'),
+('V011','T010','TK-AF-0008','W');
 
 -- Correspondre est déjà inséré plus haut (incluant les 4 compléments)
 
