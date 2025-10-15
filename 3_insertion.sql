@@ -306,3 +306,9 @@ INSERT INTO Preceder (id_tajet, id_tajet_1, ecart_minute) VALUES
 ('T011','T012','60'),
 ('T003','T012','30'),
 ('T005','T011','40');
+
+ALTER TABLE Dossier_De_Reservation
+  MODIFY id_prestation_1 VARCHAR(10) NULL;
+
+ALTER TABLE Code_De_Promo
+  MODIFY type_remise VARCHAR(20);
