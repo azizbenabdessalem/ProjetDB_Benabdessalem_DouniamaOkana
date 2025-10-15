@@ -182,7 +182,7 @@ CREATE TABLE Obtenir(
   id_voyageur VARCHAR(10),
   id_tajet VARCHAR(10),
   num_ticket VARCHAR(30),
-  classe_tarif VARCHAR(5),
+  classe_tarif VARCHAR(5)
   PRIMARY KEY(id_voyageur, id_tajet),
   UNIQUE(num_ticket),
   FOREIGN KEY(id_voyageur)
@@ -194,7 +194,7 @@ CREATE TABLE Obtenir(
 );
 
 
-DROP TABLE Correspondre;
+
 CREATE TABLE Correspondre(
   id_client VARCHAR(10),
   id_voyageur VARCHAR(10),
